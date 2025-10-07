@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Istiqomah Ibadah Remaja</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+ <link rel="stylesheet" href="style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri&display=swap" rel="stylesheet">
+    <script async src="https://cse.google.com/cse.js?cx=94e8fa0762f794b19"></script>
+</head>
+<body>
+    <div class="theme-toggle">
+        <button onclick="toggleTheme()"><i class="fas fa-moon"></i> Dark Mode</button>
+    </div>
+    <div id="toast"></div>
+
+    <div id="prayer-notification" class="notification-container">
+        <h4><i class="fas fa-bell"></i> Waktu Sholat Tiba!</h4>
+        <p>Ayo, segera tunaikan sholat <span id="prayer-name"></span>.</p>
+    </div>
+
+
+
+
+<div class="card prayer-time-card">
+    <div class="card-header">
+        <i class="fas fa-mosque"></i> Waktu Sholat Hari Ini
+    </div>
+    
+    <div class="next-prayer-info">
+        <p>Sholat **<span id="nextPrayerName"></span>** dalam:</p>
+        <h2 id="countdownTimer" class="countdown-timer">Memuat...</h2>
+    </div>
+
+    <hr style="border-top: 1px solid var(--bg-color);">
+    
+    <table class="prayer-table">
+        <tbody id="prayerTimesBody">
+            </tbody>
+    </table>
+    
+    <small style="display: block; text-align: right; color: #7f8c8d;">Lokasi: <span id="prayerLocation">Bengkulu</span></small>
+</div>
+
+
+
+
+
+    <div class="dashboard">
+        <nav class="sidebar">
+            <h2><i class="fas fa-chart-line"></i> Dashboard</h2>
+            <ul>
+                
+                
+              <div class="card live-clock-card">
+    <div class="card-header">
+        <i class="fas fa-clock"></i> Waktu Sekarang
+    </div>
+    
+    <p class="current-date" id="currentDateDisplay">Memuat Tanggal...</p>
+
+
+    
+
+    <div class="clock">
+        <div class="container-clock">
+            <h2 id="hour">00</h2>
+            <h2 class="dot">:</h2>
+            <h2 id="minute">00</h2>
+            <h2 class="dot">:</h2>
+            <h2 id="seconds">00</h2>
+        </div>
+    </div>
+</div>
+           
+           
+           
+        
+    <div class="card daily-score-card">
+    <div class="card-header">
+        <i class="fas fa-star"></i> Poin Ibadah Hari Ini
+    </div>
+    <div class="score-display">
+        <h2 id="dailyScoreDisplay">0</h2>
+        <p>Poin telah kamu kumpulkan</p>
+    </div>
+</div>
+    
+     
+
+
+           
+
+    <div class="card checklist-sholat-card">
+        <div class="card-header">
+            <i class="fas fa-calendar-check"></i> Checklist Sholat 40 Hari
+        </div>
+        
+        <div class="checklist-item">
+            <label for="sholat-subuh">Sholat Subuh</label>
+            <input type="checkbox" id="sholat-subuh" data-id="sholat-subuh">
+        </div>
+        
+        <div class="checklist-item">
+            <label for="sholat-dzuhur">Sholat Dzuhur</label>
+            <input type="checkbox" id="sholat-dzuhur" data-id="sholat-dzuhur">
+        </div>
+        
+        <div class="checklist-item">
+            <label for="sholat-ashar">Sholat Ashar</label>
+            <input type="checkbox" id="sholat-ashar" data-id="sholat-ashar">
+        </div>
+        
+        <div class="checklist-item">
+            <label for="sholat-maghrib">Sholat Maghrib</label>
+            <input type="checkbox" id="sholat-maghrib" data-id="sholat-maghrib">
+        </div>
+        
+        <div class="checklist-item">
+            <label for="sholat-isya">Sholat Isya</label>
+            <input type="checkbox" id="sholat-isya" data-id="sholat-isya">
+        </div>
+        
+    </div>
+
+    
+
+       
+                
+                <li onclick="showSection('home')"><i class="fas fa-home"></i> Beranda</li>
+                <li onclick="showSection('stats')"><i class="fas fa-chart-bar"></i> Statistik</li>
+                <li onclick="showSection('chart')"><i class="fas fa-chart-line"></i> Grafik</li>
+                <li onclick="showSection('table')"><i class="fas fa-table"></i> Tabel Data</li>
+                <li onclick="showSection('checklist')"><i class="fas fa-clipboard-check"></i> Checklist 40 Hari</li>
+                <li onclick="showSection('journal')"><i class="fas fa-book"></i> Jurnal Ibadah</li>
+                <li onclick="showSection('quiz')"><i class="fas fa-question-circle"></i> Kuis Harian</li>
+                <li onclick="showSection('forum')"><i class="fas fa-comments"></i> Forum Remaja</li>
+                <li onclick="showSection('achievements')"><i class="fas fa-trophy"></i> Pencapaian</li>
+                <li onclick="showSection('tips')"><i class="fas fa-lightbulb"></i> Trik & Tips</li>
+                <li onclick="showSection('doa')"><i class="fas fa-pray"></i> Doa & Bacaan</li>
+                <li onclick="showSection('gerakan-sholat')"><i class="fas fa-mosque"></i> Gerakan Sholat</li>
+                <li onclick="showSection('wudhu')"><i class="fas fa-hand-holding-water"></i> Wudhu</li>
+                <li onclick="showSection('hadis')"><i class="fas fa-book-open"></i> Hadis</li>
+                <li onclick="showSection('profile')"><i class="fas fa-user-circle"></i> Profil</li>
+                <li onclick="showSection('web')"><i class="fas fa-globe"></i> Web</li>
+                <li onclick="showSection('leaderboard')"><i class="fas fa-trophy"></i> Leaderboard Poin</li>
+            </ul>
+        </nav>
+
+
+
+
+        <main class="main-content">
+            <div class="header-container">
+                <h1 style="margin: 0;">Aksara</h1>
+                <div class="gcse-searchbox-only"></div>
+            </div>
+            
+            <p id="no-results" style="display: none;">Tidak ada hasil yang ditemukan.</p>
+        </ul>
+            <div class="container">
+                </section>
+                <section id="search-results-section" style="display: none;">
+                    <button class="back-button" onclick="showSection('home')"><i class="fas fa-arrow-left"></i> Kembali</button>
+                    <div class="gcse-searchresults-only"></div>
+                </section>
+
+<section id="home-section" style="display: block;">
+    <h2>Selamat Datang di Aksara</h2>
+    <p style="text-align: center;">Aksara ini menyajikan data hipotetis mengenai tren penurunan ibadah di kalangan remaja. Data ini bersifat edukatif dan terinspirasi dari riset global. Gunakan navigasi di samping untuk menjelajahi statistik, trik, doa, dan hadis.</p>
+    
+   <div class="card home-card">
+    <div class="card-header">
+        <i class="fas fa-gavel" style="color: var(--accent-color);"></i>
+        <h3>Fiqih Praktis Hari Ini</h3>
+    </div>
+    <div class="card-body">
+        <h4 id="fiqh-topic-title" style="margin-bottom: 5px;">Memuat Topik...</h4>
+        <p id="fiqh-snippet" style="font-size: 0.95em; color: var(--text-color-secondary);">...Mengambil ringkasan Fiqih harian...</p>
+        
+        <button class="btn btn-secondary btn-sm" onclick="showSection('fiqh')" style="margin-top: 10px;">
+            Baca Lebih Lanjut <i class="fas fa-arrow-right"></i>
+        </button>
+    </div>
+</div>
+ 
+    
+    
+    <div class="container card quote-card" style="margin-top: 20px;">
+    <h3><i class="fas fa-quote-left"></i> Kutipan Istiqomah Hari Ini</h3>
+    <p id="dailyQuoteText" style="font-style: italic; font-size: 1.1em; text-align: center;">"Memuat kutipan inspiratif..."</p>
+    <p id="quoteSource" style="text-align: right; font-weight: bold; color: var(--primary-color); margin-top: 10px;">— Sumber</p>
+</div>
+
+
+  
+    
+    <div class="container" style="margin-top: 20px; border-left: 5px solid #27ae60;">
+        <h3><i class="fas fa-book-open"></i> Hadis Harian</h3>
+        <p id="daily-hadith-text" style="font-style: italic;"></p>
+        <p style="font-size: 0.8em; text-align: right;" id="daily-hadith-source"></p>
+    </div>
+
+    <div class="container" style="margin-top: 20px; text-align: center;">
+        <h3><i class="fas fa-map-marker-alt"></i> Lokasi & Waktu Sholat</h3>
+        <div style="margin-bottom: 15px;">
+            <label for="user-location" style="font-weight: bold;">Lokasi (Kota):</label>
+            <input type="text" id="user-location" placeholder="Masukkan Kota Anda" style="padding: 5px; border-radius: 5px; border: 1px solid #ccc;">
+            <button onclick="saveLocation()" style="margin-left: 5px;">Simpan</button>
+        </div>
+        <button onclick="fetchRealPrayerTime()" style="background-color: #e67e22; margin-bottom: 15px;">
+            <i class="fas fa-clock"></i> Cari Waktu Sholat Real Time
+        </button>
+        <p style="margin-top: 10px;">Waktu Sholat Berikutnya: <strong id="next-prayer-time">—</strong> (<span id="next-prayer-name">—</span>)</p>
+    </div>
+    <div class="container card" style="margin-top: 20px; background-color: #f7f7f7; border-left: 5px solid #2ecc71;">
+        <h3 style="color: #2ecc71; margin-bottom: 5px;"><i class="fas fa-medal"></i> Tantangan Sunnah Minggu Ini!</h3>
+        <p id="sunnah-challenge" style="font-weight: bold; font-size: 1.1em; color: #34495e;">Memuat Tantangan...</p>
+        <p style="font-size: 0.9em; color: #7f8c8d;">(Tantangan diperbarui setiap hari Senin)</p>
+        
+        
+        
+        
+    </div>
+    <div class="container" style="margin-top: 20px;">
+        <h3><i class="fas fa-bullhorn"></i> Informasi Terbaru</h3>
+        <ul style="list-style-type: none; padding: 0;">
+            <li style="margin-bottom: 10px;"><i class="fas fa-circle-check" style="color: #27ae60;"></i> Data 2024 berhasil ditambahkan. Grafik dan tabel telah diperbarui!</li>
+            <li style="margin-bottom: 10px;"><i class="fas fa-circle-check" style="color: #27ae60;"></i> Fitur Dark Mode kini tersedia untuk kenyamanan Anda.</li>
+            <li style="margin-bottom: 10px;"><i class="fas fa-circle-check" style="color: #27ae60;"></i> Fitur **Checklist Sholat 40 Hari** telah ditambahkan. Ayo mulai konsisten!</li>
+        </ul>
+    </div>
+</section>
+<section id="stats-section" style="display: none;">
+                    <button class="back-button" onclick="showSection('home')"><i class="fas fa-arrow-left"></i> Kembali</button>
+                    <h2>Statistik Penurunan Ibadah</h2>
+                    <div class="stats">
+                        <div class="stat-box">
+                            <i class="fas fa-arrow-down"></i>
+                            <h3>Penurunan 2020-2024</h3>
+                            <p id="penurunan">25% (dari 70% ke 45% rutin sholat/ibadah)</p>
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="progress-penurunan" style="width: 45%;"></div>
+                            </div>
+                        </div>
+                        <div class="stat-box">
+                            <i class="fas fa-mobile-alt"></i>
+                            <h3>Faktor Utama</h3>
+                            <p id="faktor">Sosmed (60%), Sibuk Belajar (30%)</p>
+                        </div>
+                        <div class="stat-box">
+                            <i class="fas fa-lightbulb"></i>
+                            <h3>Rekomendasi</h3>
+                            <p>Edukasi Digital & Program Remaja Online</p>
+                        </div>
+                    </div>
+                </section>
+                
+
+
+        
+
+
+
+                
+          
+                </section>
+                <section id="chart-section" style="display: none;">
+                    <button class="back-button" onclick="showSection('home')"><i class="fas fa-arrow-left"></i> Kembali</button>
+                    <h2>Grafik Tren Penurunan</h2>
+                    <div class="controls">
+                        <label>Filter Tahun: </label>
+                        <select class="filter-select" id="yearFilter" onchange="filterChart()">
+                            <option value="all">Semua Tahun</option>
+                            <option value="2020-2022">2020-2022</option>
+                            <option value="2022-2024">2022-2024</option>
+                        </select>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="myChart"></canvas>
+                    </div>
+                </section>
+         
+                </section>
+                <section id="table-section" style="display: none;">
+                    <button class="back-button" onclick="showSection('home')"><i class="fas fa-arrow-left"></i> Kembali</button>
+                    <h2>Tabel Data Detail</h2>
+                    <table id="dataTable">
+                        <thead>
+                            <tr>
+                                <th>Tahun</th>
+                                <th>Persentase Remaja Rutin Ibadah (%)</th>
+                                <th>Faktor Penyebab Penurunan</th>
+                                <th>Saran Solusi</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            </tbody>
+                    </table>
+                </section>
+         
+                </section>
+                <section id="checklist-section" style="display: none;">
+                    <button class="back-button" onclick="showSection('home')"><i class="fas fa-arrow-left"></i> Kembali</button>
+                    <h2>Checklist Sholat Fardhu 40 Hari</h2>
+                    <p style="text-align: center;">Tantang dirimu untuk sholat 5 waktu selama 40 hari tanpa terlewat. Ini adalah langkah awal yang luar biasa untuk menguatkan ibadahmu. </p>
+                    
+                    <div class="checklist-progress-container">
+    <p style="margin: 0; font-weight: bold; font-size: 0.9em;"><i class="fas fa-calendar-check"></i> Progres 40 Hari</p>
+    <div class="checklist-progress-bar">
+        <div class="checklist-progress-fill" id="checklist-progress-fill" style="width: 0%;">
+             <span class="progress-text" id="checklist-progress-text">0/40 Hari Selesai</span>
+        </div>
+    </div>
+</div>
+
+                    
+                    
+                    
+                    <div style="text-align: center; margin-bottom: 20px;">
+                        <p style="font-weight: bold;">Pilih Warna dan Simbol:</p>
+                        <button class="color-btn active" data-color="green" style="background-color: #2ecc71; color: white;">✓ Tepat Waktu (+50 Poin)</button>
+                        <button class="color-btn" data-color="orange" style="background-color: #e67e22; color: white;">● Terlambat (+30 Poin)</button>
+                        <button class="color-btn" data-color="red" style="background-color: #e74c3c; color: white;">✗ Tidak Sholat (-50 Poin)</button>
+                    </div>
+
+                    <div style="overflow-x: auto;">
+                        <table class="checklist-table">
+                            <thead>
+                                <tr>
+                                    <th>Sholat</th>
+                                    <script>
+                                        // Script ini akan berjalan saat halaman dimuat
+                                        for (let i = 1; i <= 40; i++) {
+                                            document.write(`<th>Hari ${i}</th>`);
+                                        }
+                                    </script>
+                                </tr>
+                            </thead>
+                            <tbody id="checklist-body"></tbody>
+                        </table>
+                    </div>
+                    <div class="controls" style="margin-top: 20px;">
+                        <button onclick="clearChecklist()">Reset Checklist</button>
+                    </div>
+                </section>
+        </ul>
+           
+                </section>
+                <section id="journal-section" style="display: none;">
+                    <button class="back-button" onclick="showSection('home')"><i class="fas fa-arrow-left"></i> Kembali</button>
+                    <h2><i class="fas fa-book"></i> Jurnal Ibadah Harian</h2>
+                    <p style="text-align: center;">Catat ibadahmu hari ini dan dapatkan poin!</p>
+                    
+                    <div class="container" style="margin-bottom: 20px;">
+                        <h3>Tambah Ibadah Baru</h3>
+                        <label for="ibadah-select">Pilih Ibadah:</label>
+                        <select id="ibadah-select" class="filter-select">
+                            <option value="Sholat Fardhu">Sholat Fardhu</option>
+                            <option value="Sholat Sunnah">Sholat Sunnah (+20 Poin)</option>
+                            <option value="Baca Al-Quran">Baca Al-Quran (+30 Poin)</option>
+                            <option value="Sedekah">Sedekah (+50 Poin)</option>
+                            <option value="Puasa Sunnah">Puasa Sunnah (+100 Poin)</option>
+                            <option value="Lain-lain">Lain-lain (+10 Poin)</option>
+                        </select>
+                        <br>
+                        <label for="ibadah-detail" style="display: block; margin-top: 10px;">Detail (opsional):</label>
+                        <textarea id="ibadah-detail" placeholder="Contoh: Sholat Dhuha 2 rakaat, Baca 2 halaman juz 30" style="width: 100%; height: 80px;"></textarea>
+                        <button onclick="addIbadah()">Tambahkan</button>
+                    </div>
+
+                    <div class="container">
+                        <h3>Poin Ibadahmu: <span id="ibadah-points">0</span> Poin</h3>
+                        <div id="journal-list">
+                            </div>
+                    </div>
+                </section>
+
+                <section id="quiz-section" style="display: none;">
+                    <button class="back-button" onclick="showSection('home')"><i class="fas fa-arrow-left"></i> Kembali</button>
+                    <h2><i class="fas fa-question-circle"></i> Kuis Harian</h2>
+                    <p style="text-align: center;">Uji pengetahuanmu dan dapatkan poin tambahan!</p>
+                    
+                    <div class="container" id="quiz-container">
+                    </div>
+                </section>
+
+                <section id="forum-section" style="display: none;">
+                    <button class="back-button" onclick="showSection('home')"><i class="fas fa-arrow-left"></i> Kembali</button>
+                    <h2><i class="fas fa-comments"></i> Forum Remaja</h2>
+                    <p style="text-align: center;">Tempat berbagi, bertanya, dan saling menyemangati. Fitur ini adalah simulasi dari forum komunitas.</p>
+                    <div class="forum-post">
+                        <div class="post-header">
+                            <span>Oleh: Budi</span>
+                            <span>3 jam lalu</span>
+                        </div>
+                        <div class="post-body">
+                            <h4>"Bagaimana cara konsisten baca Al-Quran setiap hari?"</h4>
+                            <p>Saya sering semangat di awal, tapi sulit konsisten. Ada tips dari teman-teman di sini?</p>
+                        </div>
+                        <div class="comments">
+                            <div class="comment">
+                                <strong>Ria:</strong> Coba mulai dari 1 ayat saja, jangan langsung banyak. Yang penting rutin!
+                            </div>
+                            <div class="comment">
+                                <strong>Ahmad:</strong> Setel alarm di HP, atau gabung grup tahsin online, biar ada yang ngingetin.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="forum-post">
+                        <div class="post-header">
+                            <span>Oleh: Siti</span>
+                            <span>1 hari lalu</span>
+                        </div>
+                        <div class="post-body">
+                            <h4>"Alhamdulillah, checklist 40 hari saya hampir penuh!"</h4>
+                            <p>Ternyata tantangannya seru. Doakan saya bisa selesai sampai 40 hari ya!</p>
+                        </div>
+                        <div class="comments">
+                            <div class="comment">
+                                <strong>Admin:</strong> Masya Allah! Selamat ya Siti, semoga istiqomah terus.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+      
+      
+           </section>
+                <section id="achievements-section" style="display: none;">
+                    <button class="back-button" onclick="showSection('home')" aria-label="Kembali ke Beranda">
+                        <i class="fas fa-arrow-left"></i> Kembali
+                    </button>
+                    
+                    <h2><i class="fas fa-trophy"></i> Pencapaian & Hadiah</h2>
+                    
+                    <p class="section-description">Raihlah pencapaian ini untuk menunjukkan komitmenmu dalam beribadah. Poin dan checklistmu akan membuka badge.</p>
+                    
+                    <div class="badge-container">
+                        <div class="badge" id="badge-first-day">
+                            <i class="fas fa-sun badge-icon"></i>
+                            <p class="badge-text">Hari Pertama Checklist</p>
+                        </div>
+                        
+                        <div class="badge" id="badge-10-days">
+                            <i class="fas fa-star badge-icon"></i>
+                            <p class="badge-text">10 Hari Berturut-turut</p>
+                        </div>
+                        
+                        <div class="badge" id="badge-40-days">
+                            <i class="fas fa-medal badge-icon"></i>
+                            <p class="badge-text">40 Hari Sempurna</p>
+                        </div>
+                        
+                        <div class="badge" id="badge-first-journal">
+                            <i class="fas fa-feather-alt badge-icon"></i>
+                            <p class="badge-text">Jurnal Pertama</p>
+                        </div>
+                        
+                        <div class="badge" id="badge-quiz-master">
+                            <i class="fas fa-brain badge-icon"></i>
+                            <p class="badge-text">Quiz Master (5x Sempurna)</p>
+                        </div>
+
+                        <div class="badge" id="badge-point-master">
+                            <i class="fas fa-money-check-alt badge-icon"></i>
+                            <p class="badge-text">Master Poin (500 Poin)</p>
+                        </div>
+                    </div>
+                </section>
+    
+    
+             </section>
+                <section id="leaderboard-section" style="display: none;">
+                    <button class="back-button" onclick="showSection('home')"><i class="fas fa-arrow-left"></i> Kembali</button>
+                    <h2><i class="fas fa-trophy"></i> Leaderboard Poin Ibadah</h2>
+                    <p style="text-align: center;">Kumpulkan poin untuk masuk ke daftar top 5! Poin didapat dari Jurnal Ibadah dan Kuis Harian.</p>
+                    
+                    <div class="container">
+                        <table id="leaderboardTable" style="text-align: center;">
+                            <thead>
+                                <tr>
+                                    <th style="width: 10%;">Rank</th>
+                                    <th style="width: 60%;">Nama</th>
+                                    <th style="width: 30%;">Total Poin</th>
+                                </tr>
+                            </thead>
+                            <tbody id="leaderboard-body">
+                                </tbody>
+                        </table>
+                        
+                        <p style="text-align: center; margin-top: 20px;">Poin Anda Saat Ini: <strong id="user-current-points">0</strong> Poin</p>
+                    </div>
+                </section>
+        
+                        
+              <section id="doa-bacaan" class="content-section" style="display: none;">
+                  </section>
+
+          
+               <section id="tips-section" style="display: none;">
+                    <button class="back-button" onclick="showSection('home')"><i class="fas fa-arrow-left"></i> Kembali</button>
+                    <h2>Trik dan Tips Agar Semangat Ibadah</h2>
+                    <div class="list-item">
+                        <h4>1. Jadikan Ibadah Kebiasaan Kecil</h4>
+                        <p>Mulai dari hal kecil, seperti salat satu waktu sehari, lalu tingkatkan bertahap. Konsistensi lebih penting daripada intensitas.</p>
+                    </div>
+                    <div class="list-item">
+                        <h4>2. Manfaatkan Teknologi Positif</h4>
+                        <p>Gunakan aplikasi pengingat salat, aplikasi Quran digital, atau dengarkan ceramah/podcast inspiratif di perjalanan.</p>
+                    </div>
+                    <div class="list-item">
+                        <h4>3. Cari Lingkungan yang Mendukung</h4>
+                        <p>Habiskan waktu dengan teman-teman yang juga peduli pada ibadah. Ikut kegiatan remaja di masjid atau komunitas keagamaan.</p>
+                    </div>
+                    <div class="list-item">
+                        <h4>4. Temukan Makna di Balik Ibadah</h4>
+                        <p>Pahami tujuan dari setiap ibadah. Salat bukan hanya gerakan, tapi sarana untuk berkomunikasi dengan Tuhan dan mencari ketenangan.</p>
+                                            </div>
+                    <div class="list-item">
+                        <h4>4. Temukan Makna di Balik Ibadah</h4>
+                        <p>Pahami tujuan dari setiap ibadah. Salat bukan hanya gerakan, tapi sarana untuk berkomunikasi dengan Tuhan dan mencari ketenangan.</p>
+                    </div>
+                    </section>
+
+
+</section>
+<section id="doa-section" style="display: none;">
+                    <button class="back-button" onclick="showSection('home')"><i class="fas fa-arrow-left"></i> Kembali</button>
+                    <h2>Doa dan Bacaan Lengkap Sholat</h2>
+                    <div class="list-item">
+                        <h4>Niat dan Takbiratul Ihram<button class="audio-btn" onclick="playAudio('takbirAudio')"><i class="fas fa-play"></i></button></h4>
+                        <p>Niat sholat (sesuai waktu sholat yang dikerjakan) dan membaca:</p>
+                        <p class="arab">اَللّٰهُ أَكْبَرُ</p>
+                        <p class="transliterasi">"Allahu Akbar."</p>
+                        <p>Artinya: "Allah Maha Besar."</p>
+                        <audio id="takbirAudio" src="URL_AUDIO_TAKBIROTUL_IHRAM.mp3"></audio>
+                    </div>
+                    <div class="list-item">
+                        <h4>Doa Iftitah<button class="audio-btn" onclick="playAudio('iftitahAudio')"><i class="fas fa-play"></i></button></h4>
+                        <p class="arab">
+                            اَللهُ أَكْبَرُ كَبِيْرًا وَالْحَمْدُ لِلّٰهِ كَثِيْرًا وَسُبْحَانَ اللهِ بُكْرَةً وَأَصِيْلًا. إِنِّيْ وَجَّهْتُ وَجْهِيَ لِلَّذِيْ فَطَرَ السَّمَاوَاتِ وَالْأَرْضَ حَنِيْفًا مُسْلِمًا وَمَا أَنَا مِنَ الْمُشْرِكِيْنَ. إِنَّ صَلَاتِيْ وَنُسُكِيْ وَمَحْيَايَ وَمَمَاتِيْ لِلّٰهِ رَبِّ الْعَالَمِيْنَ. لَا شَرِيْكَ لَهُ وَبِذٰلِكَ أُمِرْتُ وَأَنَا مِنَ الْمُسْلِمِيْنَ.
+                        </p>
+                        <p class="transliterasi">
+                            "Allahu Akbar kabira, wal hamdu lillahi katsira, wa subhanallahi bukratan wa ashila. Inni wajjahtu wajhiya lilladzi fataras-samawati wal-ardha hanifan musliman, wa ma ana minal musyrikin. Inna sholati wa nusuki wa mahyaya wa mamati lillahi rabbil 'alamin. La syarika lahu wa bidzalika umirtu wa ana minal muslimin."
+                        </p>
+                        <p>Artinya: "Allah Maha Besar dengan sebesar-besarnya. Segala puji hanya bagi Allah dengan pujian yang banyak. Maha Suci Allah di waktu pagi dan petang. Sesungguhnya aku hadapkan wajahku kepada Zat yang menciptakan langit dan bumi dengan lurus dan berserah diri, dan aku bukanlah dari golongan orang-orang musyrik. Sesungguhnya salatku, ibadahku, hidupku, dan matiku hanyalah untuk Allah, Tuhan semesta alam. Tidak ada sekutu bagi-Nya, dan karena itu aku diperintahkan dan aku termasuk golongan orang yang berserah diri (muslim)."</p>
+                        <audio id="iftitahAudio" src="URL_AUDIO_IFITITAH.mp3"></audio>
+                    </div>
+                    <div class="list-item">
+                        <h4>Membaca Al-Fatihah<button class="audio-btn" onclick="playAudio('fatihahAudio')"><i class="fas fa-play"></i></button></h4>
+                        <p class="arab">بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ</p>
+                        <p class="transliterasi">1. "Bismillâhir-raḥmânir-raḥîm."</p>
+                        <p class="arab">اَلْحَمْدُ لِلّٰهِ رَبِّ الْعٰلَمِيْنَۙ</p>
+                        <p class="transliterasi">2. "Al-ḥamdu lillâhi rabbil-‘âlamîn."</p>
+                        <p class="arab">اَلرَّحْمٰنِ الرَّحِيْمِۙ</p>
+                        <p class="transliterasi">3. "Ar-raḥmânir-raḥîm."</p>
+                        <p class="arab">مٰلِكِ يَوْمِ الدِّيْنِۗ</p>
+                        <p class="transliterasi">4. "Mâliki yaumid-dîn."</p>
+                        <p class="arab">اِيَّاكَ نَعْبُدُ وَاِيَّاكَ نَسْتَعِيْنُۗ</p>
+                        <p class="transliterasi">5. "Iyyâka na‘budu wa iyyâka nasta‘în."</p>
+                        <p class="arab">اِهْدِنَا الصِّرَاطَ الْمُسْتَقِيْمَۙ</p>
+                        <p class="transliterasi">6. "Ihdinaṣ-ṣirâṭal-mustaqîm."</p>
+                        <p class="arab">صِرَاطَ الَّذِيْنَ اَنْعَمْتَ عَلَيْهِمْ ەۙ غَيْرِ الْمَغْضُوْبِ عَلَيْهِمْ وَلَا الضَّاۤلِّيْنَ ࣖ</p>
+                        <p class="transliterasi">7. "Ṣirâṭal-lażîna an‘amta ‘alaihim ghairil-maghḍûbi ‘alaihim wa laḍ-ḍâllîn."</p>
+                        <audio id="fatihahAudio" src="URL_AUDIO_FATIHah.mp3"></audio>
+                    </div>
+                    <div class="list-item">
+                        <h4>Membaca Surat Pendek (Al-Ikhlas)<button class="audio-btn" onclick="playAudio('ikhlasAudio')"><i class="fas fa-play"></i></button></h4>
+                        <p class="arab">قُلْ هُوَ اللّٰهُ اَحَدٌ</p>
+                        <p class="transliterasi">1. "Qul huwallâhu aḥad."</p>
+                        <p class="arab">اَللّٰهُ الصَّمَدُ</p>
+                        <p class="transliterasi">2. "Allâhuṣ-ṣamad."</p>
+                        <p class="arab">لَمْ يَلِدْ وَلَمْ يُوْلَدْ</p>
+                        <p class="transliterasi">3. "Lam yalid wa lam yûlad."</p>
+                        <p class="arab">وَلَمْ يَكُنْ لَّهٗ كُفُوًا اَحَدٌ</p>
+                        <p class="transliterasi">4. "Wa lam yakul lahû kufuwan aḥad."</p>
+                        <audio id="ikhlasAudio" src="URL_AUDIO_AL_IKHLAS.mp3"></audio>
+                    </div>
+                    <div class="list-item">
+                        <h4>Rukuk<button class="audio-btn" onclick="playAudio('rukukAudio')"><i class="fas fa-play"></i></button></h4>
+                        <p class="arab">سُبْحَانَ رَبِّيَ الْعَظِيمِ وَبِحَمْدِهِ</p>
+                        <p class="transliterasi">"Subhaana rabbiyal ‘adhiimi wa bihamdih." (3x)</p>
+                        <p>Artinya: "Mahasuci Tuhanku yang Maha Agung dan dengan segala puji-Nya."</p>
+                        <audio id="rukukAudio" src="URL_AUDIO_RUKUK.mp3"></audio>
+                    </div>
+                    <div class="list-item">
+                        <h4>I'tidal<button class="audio-btn" onclick="playAudio('itidalAudio')"><i class="fas fa-play"></i></button></h4>
+                        <p class="arab">سَمِعَ اللّٰهُ لِمَنْ حَمِدَهُ</p>
+                        <p class="transliterasi">"Sami‘allahu liman hamidah."</p>
+                        <p>Artinya: "Allah mendengar orang yang memuji-Nya."</p>
+                        <p class="arab">رَبَّنَا لَكَ الْحَمْدُ مِلْءَ السَّمَاوَاتِ وَمِلْءَ الأَرْضِ وَمِلْءَ مَا شِئْتَ مِنْ شَيْءٍ بَعْدُ</p>
+                        <p class="transliterasi">"Rabbana lakal hamdu mil'us-samawati wa mil'ul-ardhi wa mil'a ma syi'ta min syai'in ba'du."</p>
+                        <p>Artinya: "Ya Tuhan kami, hanya bagi-Mu segala puji, sepenuh langit, sepenuh bumi, dan sepenuh apa saja yang Engkau kehendaki sesudah itu."</p>
+                        <audio id="itidalAudio" src="URL_AUDIO_I_TIDAL.mpu"></audio>
+                    </div>
+                    <div class="list-item">
+                        <h4>Sujud<button class="audio-btn" onclick="playAudio('sujudAudio')"><i class="fas fa-play"></i></button></h4>
+                        <p class="arab">سُبْحَانَ رَبِّيَ الأَعْلَى وَبِحَمْدِهِ</p>
+                        <p class="transliterasi">"Subhaana rabbiyal a‘laa wa bihamdih." (3x)</p>
+                        <p>Artinya: "Mahasuci Tuhanku yang Maha Tinggi dan dengan segala puji-Nya."</p>
+                        <audio id="sujudAudio" src="URL_AUDIO_SUJUD.mp3"></audio>
+                    </div>
+                    <div class="list-item">
+                        <h4>Duduk di Antara Dua Sujud<button class="audio-btn" onclick="playAudio('dudukSujudAudio')"><i class="fas fa-play"></i></button></h4>
+                        <p class="arab">رَبِّ اغْفِرْ لِي وَارْحَمْنِي وَاجْبُرْنِي وَارْفَعْنِي وَارْزُقْنِي وَاهْدِنِي وَعَافِنِي وَاعْفُ عَنِّي</p>
+                        <p class="transliterasi">"Rabbighfirli warhamni wajburni warfa'ni warzuqni wahdini wa'afini wa'fu anni."</p>
+                        <p>Artinya: "Ya Tuhanku, ampunilah aku, sayangilah aku, tutuplah aibku, angkatlah derajatku, berilah aku rezeki, berilah aku petunjuk, berilah aku kesehatan, dan ampunilah aku."</p>
+                        <audio id="dudukSujudAudio" src="URL_AUDIO_DUDUK_SUJUD.mp3"></audio>
+                    </div>
+                    <div class="list-item">
+                        <h4>Bacaan Tahiyat Awal (khusus rakaat kedua)<button class="audio-btn" onclick="playAudio('tahiyatAwalAudio')"><i class="fas fa-play"></i></button></h4>
+                        <p class="arab">اَلتَّحِيَّاتُ لِلّٰهِ وَالصَّلَوَاتُ الطَّيِّبَاتُ، اَلسَّلاَمُ عَلَيْكَ أَيُّهاَ النَّبِيُّ وَرَحْمَةُ اللهِ وَبَرَكَاتُهُ، اَلسَّلاَمُ عَلَيْنَا وَعَلَى عِبَادِ اللهِ الصَّالِحِيْنَ، أَشْهَدُ اَنْ لاَ إِلَهَ إِلاَّ اللهُ وَأَشْهَدُ أَنَّ مُحَمَّدًا عَبْدُهُ وَرَسُوْلُهُ</p>
+                        <p class="transliterasi">"Attahiyyaatul mubaarakaatush shalawaatuth thayyibaatu lillaah. Assalaamu 'alaika ayyuhan-nabiyyu warahmatullaahi wabarakaatuh. Assalaamu 'alainaa wa 'alaa 'ibaadillaahish-shaalihiin. Asyhadu an laa ilaaha illallaah, wa asyhadu anna muhammadan 'abduhuu wa rasuuluh."</p>
+                        <p>Artinya: "Segala penghormatan, keberkahan, shalawat, dan kebaikan adalah milik Allah. Semoga salam, rahmat Allah, dan berkah-Nya terlimpah padamu, wahai Nabi. Semoga salam juga terlimpah pada kami dan hamba-hamba Allah yang saleh. Aku bersaksi bahwa tiada Tuhan selain Allah, dan aku bersaksi bahwa Muhammad adalah hamba dan utusan-Nya."</p>
+                        <audio id="tahiyatAwalAudio" src="URL_AUDIO_TAHIYAT_AWAL.mp3"></audio>
+                    </div>
+                    <div class="list-item">
+                        <h4>Bacaan Tahiyat Akhir (lengkap)<button class="audio-btn" onclick="playAudio('tahiyatAkhirAudio')"><i class="fas fa-play"></i></button></h4>
+                        <p class="arab">اَلتَّحِيَّاتُ لِلّٰهِ وَالصَّلَوَاتُ الطَّيِّبَاتُ، اَلسَّلاَمُ عَلَيْكَ أَيُّهاَ النَّبِيُّ وَرَحْمَةُ اللهِ وَبَرَكَاتُهُ، اَلسَّلاَمُ عَلَيْنَا وَعَلَى عِبَادِ اللهِ الصَّالِحِيْنَ، أَشْهَدُ اَنْ لاَ إِلَهَ إِلاَّ اللهُ وَأَشْهَدُ أَنَّ مُحَمَّدًا عَبْدُهُ وَرَسُوْلُهُ. اَللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ، كَمَا صَلَّيْتَ عَلَى إِبْرَاهِيْمَ وَعَلَى آلِ إِبْرَاهِيْمَ، وَبَارِكْ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ، كَمَا بَارَكْتَ عَلَى إِبْرَاهِيْمَ وَعَلَى آلِ إِبْرَاهِيْمَ، فِي الْعَالَمِيْنَ إِنَّكَ حَمِيْدٌ مَجِيْدٌ</p>
+                        <p class="transliterasi">"Attahiyyaatul mubaarakaatush shalawaatuth thayyibaatu lillaah. Assalaamu 'alaika ayyuhan-nabiyyu warahmatullaahi wabarakaatuh. Assalaamu 'alainaa wa 'alaa 'ibaadillaahish-shaalihiin. Asyhadu an laa ilaaha illallaah, wa asyhadu anna muhammadan 'abduhuu wa rasuuluh. Allaahumma shalli 'alaa muhammadin wa 'alaa aali muhammad, kamaa shallaita 'alaa ibraahiima wa 'alaa aali ibraahim. Wa baarik 'alaa muhammadin wa 'alaa aali muhammad, kamaa baarakta 'alaa ibraahiima wa 'alaa aali ibraahim. Fil 'aalamiina innaka hamidum majiid."</p>
+                        <p>Artinya: "Segala penghormatan, keberkahan, shalawat, dan kebaikan adalah milik Allah. Semoga salam, rahmat Allah, dan berkah-Nya terlimpah padamu, wahai Nabi. Semoga salam juga terlimpah pada kami dan hamba-hamba Allah yang saleh. Aku bersaksi bahwa tiada Tuhan selain Allah, dan aku bersaksi bahwa Muhammad adalah hamba dan utusan-Nya. Ya Allah, limpahkanlah rahmat kepada Nabi Muhammad dan keluarga Nabi Muhammad, sebagaimana Engkau telah melimpahkan rahmat kepada Nabi Ibrahim dan keluarga Nabi Ibrahim. Dan limpahkanlah berkah kepada Nabi Muhammad dan keluarga Nabi Muhammad, sebagaimana Engkau melimpahkan berkah kepada Nabi Ibrahim dan keluarga Nabi Ibrahim. Sesungguhnya di alam semesta Engkau Maha Terpuji lagi Maha Mulia."</p>
+                        <audio id="tahiyatAkhirAudio" src="URL_AUDIO_TAHIYAT_AKHIR.mp3"></audio>
+                    </div>
+                    <div class="list-item">
+                        <h4>Salam<button class="audio-btn" onclick="playAudio('salamAudio')"><i class="fas fa-play"></i></button></h4>
+                        <p class="arab">اَلسَّلاَمُ عَلَيْكُمْ وَرَحْمَةُ اللهِ وَبَرَكَاتُهُ</p>
+                        <p class="transliterasi">"Assalamu'alaikum wa rahmatullahi wa barakatuh."</p>
+                        <p>Artinya: "Semoga keselamatan dan rahmat Allah serta berkah-Nya terlimpah untuk kalian."</p>
+                        <audio id="salamAudio" src="URL_AUDIO_SALAM.mp3"></audio>
+                    </div>
+                </section>
+                      
+                      
+                               </section><section id="gerakan-sholat-section" style="display: none;">
+                    <button class="back-button" onclick="showSection('home')"><i class="fas fa-arrow-left"></i> Kembali</button>
+                    <h2>Panduan Gerakan Sholat yang Benar</h2>
+                    <p style="text-align: center;">Ikuti langkah-langkah berikut untuk memastikan gerakan sholat Anda sesuai dengan sunnah. (Gambar hanya placeholder)</p>
+                    <div class="list-item gerakan-step">
+                        <img src="https://via.placeholder.com/120x150?text=Takbir+&amp;+Niat" alt="Gerakan Berdiri Tegak dan Takbiratul Ihram">
+                        <div class="gerakan-desc">
+                            <h4>1. Berdiri Tegak dan Takbiratul Ihram</h4>
+                            <p>Menghadap kiblat dengan posisi tangan diangkat sejajar bahu atau telinga. Ucapkan "Allahu Akbar".</p>
+                        </div>
+                    </div>
+                    <div class="list-item gerakan-step">
+                        <img src="https://via.placeholder.com/120x150?text=Sedekap" alt="Gerakan Sedekap (Qiyam)">
+                        <div class="gerakan-desc">
+                            <h4>2. Sedekap (Qiyam)</h4>
+                            <p>Setelah takbir, letakkan tangan kanan di atas tangan kiri, di atas dada atau di bawah pusar. Bacaan sholat dimulai dari sini.</p>
+                        </div>
+                    </div>
+                    <div class="list-item gerakan-step">
+                        <img src="https://via.placeholder.com/120x150?text=Rukuk" alt="Gerakan Rukuk">
+                        <div class="gerakan-desc">
+                            <h4>3. Rukuk</h4>
+                            <p>Bungkukkan badan dengan punggung lurus, sejajar dengan tanah. Tangan memegang lutut. Pandangan lurus ke tempat sujud. Bacalah doa rukuk 3x.</p>
+                        </div>
+                    </div>
+                    <div class="list-item gerakan-step">
+                        <img src="https://via.placeholder.com/120x150?text=I'tidal" alt="Gerakan I'tidal">
+                        <div class="gerakan-desc">
+                            <h4>4. I'tidal (Bangun dari Rukuk)</h4>
+                            <p>Angkat badan kembali ke posisi berdiri tegak. Tangan diluruskan di sisi badan. Bacalah doa i'tidal.</p>
+                        </div>
+                    </div>
+                    <div class="list-item gerakan-step">
+                        <img src="https://via.placeholder.com/120x150?text=Sujud" alt="Gerakan Sujud">
+                        <div class="gerakan-desc">
+                            <h4>5. Sujud</h4>
+                            <p>Turun dan letakkan dahi, hidung, kedua telapak tangan, lutut, dan ujung-ujung jari kaki di lantai. Usahakan semua anggota sujud menempel sempurna. Baca doa sujud 3x.</p>
+                        </div>
+                    </div>
+                    <div class="list-item gerakan-step">
+                        <img src="https://via.placeholder.com/120x150?text=Duduk+Antara+2+Sujud" alt="Gerakan Duduk di Antara Dua Sujud">
+                        <div class="gerakan-desc">
+                            <h4>6. Duduk di Antara Dua Sujud</h4>
+                            <p>Angkat badan dari sujud dan duduklah dengan punggung lurus. Kaki kiri diduduki dan kaki kanan ditegakkan. Baca doa duduk di antara dua sujud.</p>
+                        </div>
+                    </div>
+                    <div class="list-item gerakan-step">
+                        <img src="https://via.placeholder.com/120x150?text=Sujud+2" alt="Gerakan Sujud Kedua">
+                        <div class="gerakan-desc">
+                            <h4>7. Sujud Kedua</h4>
+                            <p>Ulangi gerakan sujud yang pertama dengan bacaan yang sama.</p>
+                        </div>
+                    </div>
+                    <div class="list-item gerakan-step">
+                        <img src="https://via.placeholder.com/120x150?text=Tahiyat" alt="Gerakan Tahiyat / Tasyahud">
+                        <div class="gerakan-desc">
+                            <h4>8. Tahiyat / Tasyahud</h4>
+                            <p>Duduk seperti saat duduk di antara dua sujud (tasyahud awal) atau dengan posisi kaki kanan tegak dan pantat menyentuh lantai (tasyahud akhir). Baca doa tahiyat hingga selesai.</p>
+                        </div>
+                    </div>
+                    <div class="list-item gerakan-step">
+                        <img src="https://via.placeholder.com/120x150?text=Salam" alt="Gerakan Salam">
+                        <div class="gerakan-desc">
+                            <h4>9. Salam</h4>
+                            <p>Palingkan wajah ke kanan, lalu ke kiri, sambil mengucapkan "Assalamu'alaikum wa rahmatullah".</p>
+                        </div>
+                    </div>
+                </section>
+                        
+                               </section><section id="wudhu-section" style="display: none;">
+                    <button class="back-button" onclick="showSection('home')"><i class="fas fa-arrow-left"></i> Kembali</button>
+                    <h2>Panduan Lengkap Wudhu yang Benar</h2>
+                    <p style="text-align: center;">Wudhu adalah syarat sah sholat. Ikuti langkah-langkah berikut agar wudhu Anda sempurna. (Gambar hanya placeholder)</p>
+                    <div class="list-item gerakan-step">
+                        <img src="https://via.placeholder.com/120x150?text=Niat+&amp;+Tangan" alt="Gerakan Basuh Tangan dan Niat">
+                        <div class="gerakan-desc">
+                            <h4>1. Niat dan Basuh Telapak Tangan<button class="audio-btn" onclick="playAudio('niatWudhuAudio')"><i class="fas fa-play"></i></button></h4>
+                            <p>Niat Wudhu: <span class="transliterasi">"Nawaitul wudhuu’a lirof’il hadatsil ashghori fardlon lillaahi ta’aalaa."</span><br>Artinya: "Saya niat berwudu untuk menghilangkan hadas kecil, fardu karena Allah ta'ala."<br>Setelah itu, basuh telapak tangan tiga kali sambil menyela-nyela jari.</p>
+                            <audio id="niatWudhuAudio" src="URL_AUDIO_NIAT_WUDHU.mp3"></audio>
+                        </div>
+                    </div>
+                    <div class="list-item gerakan-step">
+                        <img src="https://via.placeholder.com/120x150?text=Kumur+&amp;+Hidung" alt="Gerakan Berkumur dan Membasuh Hidung">
+                        <div class="gerakan-desc">
+                            <h4>2. Berkumur dan Membasuh Hidung</h4>
+                            <p>Kumur-kumur tiga kali. Masukkan air ke dalam hidung dan keluarkan tiga kali.</p>
+                        </div>
+                    </div>
+                    <div class="list-item gerakan-step">
+                        <img src="https://via.placeholder.com/120x150?text=Wajah" alt="Gerakan Membasuh Wajah">
+                        <div class="gerakan-desc">
+                            <h4>3. Membasuh Wajah</h4>
+                            <p>Basuh seluruh wajah tiga kali dari dahi hingga dagu dan dari telinga kanan ke telinga kiri.</p>
+                        </div>
+                    </div>
+                    <div class="list-item gerakan-step">
+                        <img src="https://via.placeholder.com/120x150?text=Tangan" alt="Gerakan Membasuh Kedua Tangan">
+                        <div class="gerakan-desc">
+                            <h4>4. Membasuh Kedua Tangan</h4>
+                            <p>Basuh tangan kanan dari ujung jari hingga siku tiga kali, lalu basuh tangan kiri dengan cara yang sama.</p>
+                        </div>
+                    </div>
+                    <div class="list-item gerakan-step">
+                        <img src="https://via.placeholder.com/120x150?text=Kepala" alt="Gerakan Mengusap Sebagian Kepala">
+                        <div class="gerakan-desc">
+                            <h4>5. Mengusap Sebagian Kepala</h4>
+                            <p>Usap sebagian rambut kepala dengan tangan yang basah sekali.</p>
+                        </div>
+                    </div>
+                    <div class="list-item gerakan-step">
+                        <img src="https://via.placeholder.com/120x150?text=Telinga" alt="Gerakan Membasuh Kedua Telinga">
+                        <div class="gerakan-desc">
+                            <h4>6. Membasuh Kedua Telinga</h4>
+                            <p>Usap telinga luar dan dalam dengan jari telunjuk dan ibu jari sekali.</p>
+                        </div>
+                    </div>
+                    <div class="list-item gerakan-step">
+                        <img src="https://via.placeholder.com/120x150?text=Kaki" alt="Gerakan Membasuh Kedua Kaki">
+                        <div class="gerakan-desc">
+                            <h4>7. Membasuh Kedua Kaki</h4>
+                            <p>Basuh kaki kanan hingga mata kaki tiga kali, lalu kaki kiri dengan cara yang sama. Pastikan sela-sela jari kaki juga dibersihkan.</p>
+                        </div>
+                    </div>
+                    <div class="list-item">
+                        <h4>8. Berdoa Setelah Wudhu<button class="audio-btn" onclick="playAudio('doaWudhuAudio')"><i class="fas fa-play"></i></button></h4>
+                        <p class="arab">أَشْهَدُ أَنْ لَا إِلَهَ إِلَّا اللهُ وَحْدَهُ لَا شَرِيكَ لَهُ، وَأَشْهَدُ أَنَّ مُحَمَّدًا عَبْدُهُ وَرَسُولُهُ. اَللَّهُمَّ اجْعَلْنِي مِنَ التَّوَّابِينَ، وَاجْعَلْنِي مِنَ الْمُتَطَهِّرِينَ، وَاجْعَلْنِي مِنْ عِبَادِكَ الصَّالِحِينَ</p>
+                        <p class="transliterasi">"Asyhadu an laa ilaaha illallaahu wahdahuu laa syariikalahu, wa asyhadu anna muhammadan ‘abduhuu wa rosuuluh. Allohummaj’alnii minat tawwaabiina, waj’alnii minal mutathohhiriina, waj’alnii min ‘ibaadikas-shoolihiin."</p>
+                        <p>Artinya: "Aku bersaksi bahwa tiada Tuhan selain Allah Yang Maha Esa, tiada sekutu bagi-Nya, dan aku bersaksi bahwa Muhammad adalah hamba dan utusan-Nya. Ya Allah, jadikanlah aku termasuk orang-orang yang bertaubat, dan jadikanlah aku termasuk orang-orang yang suci, dan jadikanlah aku termasuk hamba-hamba-Mu yang shalih."</p>
+                        <audio id="doaWudhuAudio" src="URL_AUDIO_DOA_WUDHU.mp3"></audio>
+                    </div>
+                </section>
+            
+                    </section><section id="hadis-section" style="display: none;">
+                    <button class="back-button" onclick="showSection('home')"><i class="fas fa-arrow-left"></i> Kembali</button>
+                    <h2>Hadis Pilihan</h2>
+                    <div class="list-item">
+                        <h4>Hadis tentang Amalan yang Paling Dicintai</h4>
+                        <p>Dari Aisyah, Rasulullah SAW bersabda: **"Amalan yang paling dicintai oleh Allah adalah amalan yang kontinyu (berkelanjutan) meskipun sedikit."** (HR. Bukhari dan Muslim)</p>
+                        <p>Pesan: Istiqomah lebih baik daripada berlebihan di awal lalu berhenti.</p>
+                    </div>
+                    <div class="list-item">
+                        <h4>Hadis tentang Salat Tepat Waktu</h4>
+                        <p style="font-style: italic; font-size: 1.1em;">"Amal yang paling dicintai Allah adalah salat pada waktunya."</p>
+                        <p>— HR. Bukhari dan Muslim</p>
+                    </div>
+                    <div class="list-item">
+                        <h4>Hadis tentang Keutamaan Wudu</h4>
+                        <p style="font-style: italic; font-size: 1.1em;">"Apabila seorang Muslim berwudu, kemudian ia membasuh mukanya, maka setiap dosa yang ia perbuat dengan mukanya akan keluar bersama air, atau bersama tetesan air yang terakhir..."</p>
+                        <p>— HR. Muslim</p>
+                    </div>
+                    <div class="list-item">
+                        <h4>Hadis tentang Keutamaan Bersujud</h4>
+                        <p style="font-style: italic; font-size: 1.1em;">"Jarak terdekat seorang hamba dengan Tuhannya adalah ketika ia sedang bersujud."</p>
+                        <p>— HR. Muslim</p>
+                    </div>
+                </section>
+              
+
+ <section id="profile-section" style="display: none;">
+                    <button class="back-button" onclick="showSection('home')"><i class="fas fa-arrow-left"></i> Kembali</button>
+                    <h2>Profil Pengguna</h2>
+                    <div style="text-align: center;">
+                        <img id="profile-picture" src="https://via.placeholder.com/100?text=Profile" alt="Foto Profil">
+                        <label for="file-upload" class="custom-file-upload">
+                            <i class="fa fa-cloud-upload-alt"></i> Unggah Foto
+                        </label>
+                        <input id="file-upload" type="file" onchange="previewImage(event)"/>
+                        <h3>Nama Pengguna: Remaja Istiqomah</h3>
+                        <p>Poin Ibadah Total: <strong id="profile-points">0</strong> Poin</p>
+                        </div>
+                </section>
+                        
+</div>
+                </section>
+   
+
+
+
+
+                
+         </section>
+                <section id="web-section" style="display: none;">
+                    <button class="back-button" onclick="showSection('home')"><i class="fas fa-arrow-left"></i> Kembali</button>
+                    <h2>Link Web Islami Pilihan</h2>
+                    <div class="list-item">
+                        <h4><a href="https://nu.or.id/" target="_blank">Nu Online</a></h4>
+                        <p>Sumber referensi keagamaan resmi dari NU.</p>
+                    </div>
+                    <div class="list-item">
+                        <h4><a href="https://www.republika.co.id/kolom/khazanah" target="_blank">Republika Online - Khazanah</a></h4>
+                        <p>Berita dan artikel seputar Islam dan sejarah.</p>
+                    </div>
+                    </button>
+                    <h2>Sumber Data & Referensi Web</h2>
+                    <p>Berikut adalah beberapa sumber referensi yang relevan dengan tren sosial dan data ibadah di kalangan remaja. Data pada dashboard ini bersifat hipotetis, namun terinspirasi dari riset sejenis.</p>
+                    <ul class="web-list">
+                        <li><i class="fas fa-link"></i> <a href="https://www.pewresearch.org/" target="_blank">Pew Research Center</a><p>Lembaga riset yang sering menerbitkan survei tentang agama dan kehidupan sosial di berbagai negara.</p></li>
+                        <li><i class="fas fa-link"></i> <a href="https://www.bps.go.id/" target="_blank">Badan Pusat Statistik (BPS) Indonesia</a><p>Sumber data resmi pemerintah Indonesia untuk demografi dan statistik sosial.</p></li>
+                        <li><i class="fas fa-link"></i> <a href="https://www.unicef.org/indonesia" target="_blank">UNICEF Indonesia</a><p>Informasi dan laporan tentang kesejahteraan, pendidikan, dan kesehatan anak dan remaja di Indonesia.</p></li>
+                    
+                                    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+                
+                <script src="main.js"></script>
+                </body>
+                
+                </html>
+        </div>
+
+                        </ul>
+                </section>
+
+            </div>
+        </main>
+    </div>
+    
+    <script>
+        // Fungsi untuk menampilkan/menyembunyikan bagian (diperlukan agar navigasi berfungsi)
+        function showSection(sectionId) {
+            document.querySelectorAll('section').forEach(section => {
+                section.style.display = 'none';
+            });
+
+            // Perbaikan bug: Pastikan section home-section ditampilkan jika user klik 'home'
+            if (sectionId === 'home') {
+                 document.getElementById('home-section').style.display = 'block';
+            } else {
+                const sectionElement = document.getElementById(sectionId + '-section');
+                if (sectionElement) {
+                    sectionElement.style.display = 'block';
+                }
+            }
+        }
+
+        // Jalankan showSection('home-section') saat pertama kali dimuat untuk memastikan Beranda tampil
+        document.addEventListener('DOMContentLoaded', () => {
+            showSection('home');
+        });
+
+        // Hapus fungsi dan variabel yang tidak lagi digunakan (placeholder)
+        // Hapus Qibla-related script logic (jika ada di main.js)
+        // Hapus Quote-related script logic (jika ada di main.js)
+        
+        // Hanya contoh placeholder untuk fungsi yang ada, pastikan main.js di luar ini sudah diupdate/disinkronkan
+        function toggleTheme() { /* logic toggle theme */ }
+        function saveLocation() { /* logic save location */ }
+        function fetchRealPrayerTime() { /* logic fetch prayer time */ }
+        function clearChecklist() { /* logic clear checklist */ }
+        function addIbadah() { /* logic add ibadah */ }
+        function previewImage(event) { /* logic preview image */ }
+        function playAudio(audioId) { /* logic play audio */ }
+
+    </script>
+    <script src="main.js"></script>
+    </body>
+    
+    </html>
+    
